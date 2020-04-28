@@ -1,0 +1,30 @@
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+body{
+    background: #eee;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.wrapper{
+    margin: 0;
+    padding: 0;
+}
+
+#main-header{
+    padding: 15px;
+    background: #696969;
+    margin-bottom: 20px;
+    color: #fff;
+    h1{
+        font-size: 24px;
+        margin: 0;
+    }
+}
+
+
+// .heading-logo{
+//     width: 25px;
+//     height: 25px;
+// }
+
+
