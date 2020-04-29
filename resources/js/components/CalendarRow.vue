@@ -10,29 +10,13 @@
 </template>
 
 <script>
-
     export default {
         props: ['date','event'],
-        data: function(){
-            return{
-            }
-        },
-        created() {
-
-        },
-        mounted() {
-        },
-        filters: {
-        },
-        methods: {
-       
-        },
         computed: {
             getEventName(){
                 return this.event.length > 0 ? this.event[0].event.name : '';
             }
         },
-
     }
 </script>
 
@@ -40,11 +24,9 @@
     .hasEvent{
         background: #e1fcd9;
     }
-    
     p{
         margin: 10px 0;
         padding-left: 10px;
         padding-right: 30px;
     }
-
 </style>

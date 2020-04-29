@@ -2138,13 +2138,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['date', 'event'],
-  data: function data() {
-    return {};
-  },
-  created: function created() {},
-  mounted: function mounted() {},
-  filters: {},
-  methods: {},
   computed: {
     getEventName: function getEventName() {
       return this.event.length > 0 ? this.event[0].event.name : '';
@@ -6735,7 +6728,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.hasEvent[data-v-74e252a1]{\n    background: #e1fcd9;\n}\np[data-v-74e252a1]{\n    margin: 10px 0;\n    padding-left: 10px;\n    padding-right: 30px;\n}\n\n", ""]);
+exports.push([module.i, "\n.hasEvent[data-v-74e252a1]{\n    background: #e1fcd9;\n}\np[data-v-74e252a1]{\n    margin: 10px 0;\n    padding-left: 10px;\n    padding-right: 30px;\n}\n", ""]);
 
 // exports
 
