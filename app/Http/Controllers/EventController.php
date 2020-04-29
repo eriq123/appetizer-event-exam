@@ -14,6 +14,7 @@ class EventController extends Controller
         $this->data['event'] = Event::create([
             'name' => $request->eventName
         ]);
+        
         foreach($request->dates as $key => $value)
         {
             Date::where('full_date',$value['full_date'])->delete();
@@ -25,10 +26,11 @@ class EventController extends Controller
                 'year' => $value['year'],
             ]);
         }
+
         $this->getDates($request);
         return response()->json($this->data);
     }
-    
+
     private function getDates($request)
     {
         $this->data['dates'] = Date::with('event')->where('month', $request->month)->where('year',$request->year)->orderBy('full_date')->get();

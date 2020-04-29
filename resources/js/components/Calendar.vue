@@ -41,12 +41,10 @@
         },
         created() {
             axios.post(this.listEventRoute, this.data).then(response => {
-
                 this.events = response.data.dates;
                 this.eventIDs = this.events.map(function(value, key){
                     return value.date;
                 });
-
             }).catch(e => {
                 console.log(e);
                 this.$Swal.fire({

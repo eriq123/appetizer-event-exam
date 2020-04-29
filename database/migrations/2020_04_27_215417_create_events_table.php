@@ -19,6 +19,7 @@ class CreateEventsTable extends Migration
             $table->timestamps();
         });
 
+        // i could create a new migration but for this small project i'll just put them in the same file
         Schema::create('dates', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('event_id');

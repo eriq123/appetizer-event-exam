@@ -12,11 +12,10 @@
 
     <div class="wrapper">
         @include('partials.header')
-
+        
         <div class="container-fluid">
             @yield('content')
         </div>
-
     </div>
 
     <script src="{{mix('js/app.js')}}"></script>
