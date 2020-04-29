@@ -16,12 +16,23 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->timestamps();
+        });
+
+        Schema::create('dates', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('event_id');
+            $table->string('full_date');
             $table->string('month');
-            $table->string('day');
             $table->integer('date');
             $table->integer('year');
             $table->timestamps();
+
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
         });
+
+
+        
     }
 
     /**
@@ -32,5 +43,6 @@ class CreateEventsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('events');
+        Schema::dropIfExists('dates');
     }
 }

@@ -9,101 +9,99 @@
         <div class="row">
             <div class="col-sm-6">
                 <label for="from_date">From</label>
-                <input  class="form-control" type="date" name="from_date" id="from_date" v-model="data.fromDate">
+                <input  class="form-control" type="date" name="from_date" id="from_date" v-model="fromDate">
             </div>
             <div class="col-sm-6">
                 <label for="to_date">To</label>
-                <input  class="form-control" type="date" name="to_date" id="to_date" v-model="data.toDate">
+                <input  class="form-control" type="date" name="to_date" id="to_date" v-model="toDate">
             </div>
         </div>
         <div class="row">
-            <div class="col days" v-for="day in days" :key="day.id">
-                <input type="checkbox" :id="day.name" :value="day.id" v-model="data.daysSelected">
-                <label :for="day.name">{{day.alias}}</label>
+            <div class="days" v-for="(day, index) in days" :key="index">
+                <input type="checkbox" :id="day" :value="index" v-model="daysSelected">
+                <label :for="day">{{day}}</label>
             </div>
         </div>
         <button class="btn btn-info" type="button" v-on:click="saveEvent">
             Save
         </button>
 
-        <div class="container">
-            days: {{data.daysSelected}} <br>
+        <!-- <div class="container">
+            days: {{daysSelected}} <br>
 
             Event: {{data.eventName}} <br>
-            from: {{data.fromDate}} <br>
-            to: {{data.toDate}} <br>
-        </div>
+            from: {{fromDate}} <br>
+            to: {{toDate}} <br>
+
+        </div> -->
     </div>
 </template>
 
 <script>
+
     export default {
-        props: ['eventRoute'],
+        props: ['eventRoute','currentMonth','currentYear'],
         data: function(){
             return{
-                days: [
-                    {
-                        id: 1,
-                        name: "Monday",
-                        alias: "Mon",
-                    },
-                    {
-                        id: 2,
-                        name: "Tuesday",
-                        alias: "Tue",
-                    },
-                    {
-                        id: 3,
-                        name: "Wednesday",
-                        alias: "Wed",
-                    },
-                    {
-                        id: 4,
-                        name: "Thursday",
-                        alias: "Thu",
-                    },
-                    {
-                        id: 5,
-                        name: "Friday",
-                        alias: "Fri",
-                    },
-                    {
-                        id: 6,
-                        name: "Saturday",
-                        alias: "Sat",
-                    },
-                    {
-                        id: 7,
-                        name: "Sunday",
-                        alias: "Sun",
-                    },
-                ],
-                
+                days: [],
+                fromDate: '',
+                toDate: '',
+                daysSelected: [],
+
+                events: [],
+
                 data: {
                     eventName: '',
-                    fromDate: '',
-                    toDate: '',
-                    daysSelected: [],
+                    dates: [],
+                    month: '',
+                    year: ''
                 }
             }
         },
         mounted() {
-
+            this.days = this.$moment.weekdays();
         },
         methods: {
             saveEvent: function(){
-                this.data.daysSelected.sort();
+                this.$Swal.fire({
+                    title: 'Success!',
+                    text: 'Event successfully saved!',
+                    icon: 'success',
+                });
+                
+                const startDate = this.$moment(this.fromDate);
+                const endDate = this.$moment(this.toDate);
+                const range = this.$moment().range(startDate, endDate);
+
+                for (let month of range.by('day')) {
+                    if( this.daysSelected.includes(month.day()) ){
+                        this.data.dates.push({
+                            month: month.format('MMMM'),
+                            date: month.date(),
+                            year: month.year(),
+                            full_date: month.format('YYYY-MM-DD'),
+                        });
+                    }
+                }
+
+                this.data.month = this.currentMonth;
+                this.data.year = this.currentYear;
+
 
                 axios.post(this.eventRoute, this.data).then(response => {
-                    console.log(response);
+
+                    this.events = response.data.dates;
+                    // console.log(this.events);
+                    this.$emit('updateEvents',this.events);
+
                 }).catch(e => {
                     console.log(e);
+                    this.$Swal.fire({
+                        title: 'Error!',
+                        text: 'Something went wrong. Please refresh the page and try again.',
+                        icon: 'error',
+                    });
                 });
-
-                // console.log(this.data.eventName)
-                // console.log(this.data.fromDate)
-                // console.log(this.data.toDate)
-                // console.log(this.data.daysSelected)
             },
         },
     }
@@ -113,12 +111,16 @@
     input{
         margin-bottom: 5px;
     }
+    /* input[type="checkbox"]{ */
+        /* margin-left: 15px; */
+    /* } */
     .days{
         padding: 0;
+        margin: auto 15px;
     }
-    .days:nth-child(1){
+    /* .days:nth-child(1){
         padding-left: 15px;
-    }
+    } */
     .row{
         margin-bottom: 20px;
     }

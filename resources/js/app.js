@@ -7,6 +7,16 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+const Swal = require('sweetalert2');
+
+
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
+
+const moment = extendMoment(Moment);
+
+Vue.prototype.$moment = moment;
+Vue.prototype.$Swal= Swal;
 
 /**
  * The following block of code may be used to automatically register your

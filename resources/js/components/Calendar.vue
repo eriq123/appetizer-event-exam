@@ -1,17 +1,18 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-md-6 col-lg-5" id="calendar-form">
-                <calendar-form :eventRoute="this.eventRoute"></calendar-form>
+            <div class="col-lg-4" id="calendar-form">
+                <calendar-form :eventRoute="this.eventRoute" :currentMonth="this.data.month" :currentYear="this.data.year" @updateEvents="eventsUpdate"></calendar-form>
             </div>
-            <div class="col-md-6 col-lg-7" id="calendar-rows">
+            <div class="col-lg-8 mt-md-5 mt-lg-0" id="calendar-rows">
 
-                <h4> {{this.month}} {{this.year}}  </h4>
+                <h4> {{this.data.month}} {{this.data.year}} </h4>
                 <hr>
 
-                <!-- ul of component here -->
-                <!-- <ul>
-                </ul> -->
+                <div class="container-fluid">
+                    <calendar-row v-for="(row, index) in rows" :key="index" :date="row" :event="eventIDs.includes(row.date()) ? filterEvents(row.date()) : []"></calendar-row>
+                </div>
+
             </div>
         </div>
     </div>
@@ -19,66 +20,81 @@
 
 <script>
     import calendarForm from './CalendarForm.vue';
-    const moment = require('moment');
+    import calendarRow from './CalendarRow.vue';
 
     export default {
         components:{
-            calendarForm
+            calendarForm,
+            calendarRow,
         },
-        props: ['eventRoute'],
-        data() {
+        props: ['eventRoute','listEventRoute'],
+        data: function() {
             return {
-                month: moment().format("MMMM"),
-                year: moment().year(),
+                data: {
+                    month: '',
+                    year: '',
+                },
+                rows: [],
+                events: [],
+                eventIDs: [],
             }
         },
+        created() {
+            // get the list of events
+            axios.post(this.listEventRoute, this.data).then(response => {
+
+                this.events = response.data.dates;
+                this.eventIDs = this.events.map(function(value, key){
+                    return value.date;
+                });
+
+            }).catch(e => {
+                console.log(e);
+                this.$Swal.fire({
+                    title: 'Error!',
+                    text: 'Something went wrong. Please refresh the page and try again.',
+                    icon: 'error',
+                });
+            });
+        },
         mounted() {
-            // this.monthYear = moment().format("MMMM YYYY");
+            // prepare the list of days 
+            this.data.month = this.$moment().format("MMMM");
+            this.data.year = this.$moment().year();
 
-            // console.log(moment().date());
-            // console.log(moment().daysInMonth());
-            // console.log(moment().weekday());
+            const startOfMonth = this.$moment().startOf("month");
+            const endOfMonth = this.$moment().endOf("month");
 
-            // data from database has same YEAR AND MONTH
+            const m = this.$moment();
+            const range = m.range(startOfMonth, endOfMonth);
 
-            // the only problem now is the day and date
-
-
-
-            // for(let i = 1; i <= moment().daysInMonth; i++){
-            //     let day = {
-            //         day: i,
-
-            //     }
-            //     this.days.push();
-            // }
-
-            // create an array of days here 
-            // {
-            //     eventName: sample event
-            //     event: true
-            //     day: Tuesday
-            //     date: 28
-            // }
-
-            // daysOfCurrentMonth = [];
-
-            // foreach{
-            //     if day == day from database{
-                // update the array
-            // }
-            // }
+            this.rows = Array.from(range.by('day'));
         },
         methods: {
+            eventsUpdate: function(value) {
+                this.events = value;
+                this.eventIDs = this.events.map(function(value, key){
+                    return value.date;
+                });
+                // console.log("calendar parent");
+                // console.log(this.events);
+            },
+            filterEvents: function(id) {
+                return this.events.filter(singleEvent => singleEvent.date == id);
+            }
         }
     }
 </script>
 
 <style scoped>
-    #calendar-form{
+    /* #calendar-form{
         border: 1px solid #aaa;
         border-radius: 5px;
         padding-top: 10px;
         padding-bottom: 10px;
+    } */
+    hr{
+        border-top: 1px solid rgba(0, 0, 0, 0.5);
+        margin-bottom: 0;
     }
 </style>

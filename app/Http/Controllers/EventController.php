@@ -2,34 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\Date;
+use App\Event;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    private function getDates($request){
+        $this->data['dates'] = Date::with('event')->where('month', $request->month)->where('year',$request->year)->orderBy('full_date')->get();
+    }
+
     public function saveEvent(Request $request)
     {
-        // days = array of days 1-7
-        // event name
-        // from 
-        // to
+        $this->data['event'] = Event::firstOrCreate([
+            'name' => $request->eventName
+        ]);
 
-        // array of dates from-to from the form
-        // array of dates from database 
+        foreach($request->dates as $key => $value){
+            // dates i created 1 2 3 4 5 6 7 8 9 10 
+            // dates i created again 2 3 4 5 6 11
+            // edit this again
 
-        // save the event 
-            // loop all days from - to
-                // check if day is in database if so
-                    // update the record
+            Date::updateOrCreate(
+                [
+                    'full_date' => $value['full_date'] 
+                ],
+                [
+                    'event_id' => $this->data['event']->id,
+                    'full_date' => $value['full_date'],
+                    'month' => $value['month'],
+                    'date' => $value['date'],
+                    'year' => $value['year'],
+                ]
+            );
+           
+        }
 
-                    // check if days matches the current day then add to database
-            
-        // format the response
-            // if the current year && month from the calendar(parent component) matches --- so we can limit the response to max 31 items 
-                // i need the event name
-                // the day
-                // the dates
+        $this->getDates($request);
 
-        return response()->json($request->all());
+        return response()->json($this->data);
+    }
+
+    public function listEvents(Request $request)
+    {
+        $this->getDates($request);
+
+        return response()->json($this->data);
+
     }
 }
 
@@ -56,4 +75,4 @@ class EventController extends Controller
 // update event
     // --update the event if not existing
     // --then if date didn't exist add new record
-    // --else update the event_id
+    // --else update the event_id 

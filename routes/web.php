@@ -20,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::post('/save/event', 'EventController@saveEvent')->name('save.event');
+Route::post('/list/events', 'EventController@listEvents')->name('list.event');
