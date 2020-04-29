@@ -38,10 +38,7 @@
 
 <style scoped>
     .hasEvent{
-        /* background: #90EE90; */
         background: #e1fcd9;
-        /* background: #e8f2e5; */
-        /* background: #f3faf1; */
     }
     
     p{

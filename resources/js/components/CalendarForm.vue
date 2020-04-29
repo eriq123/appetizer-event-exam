@@ -25,16 +25,6 @@
         <button class="btn btn-info" type="button" v-on:click="saveEvent">
             Save
         </button>
-
-    <!-- {{this.data.dates}} -->
-        <!-- <div class="container">
-            days: {{daysSelected}} <br>
-
-            Event: {{data.eventName}} <br>
-            from: {{fromDate}} <br>
-            to: {{toDate}} <br>
-
-        </div> -->
     </div>
 </template>
 
@@ -86,7 +76,6 @@
                 axios.post(this.eventRoute, this.data).then(response => {
 
                     this.events = response.data.dates;
-                    // console.log(this.events);
                     this.$emit('updateEvents',this.events);
                 
                     this.$Swal.fire({
@@ -112,16 +101,10 @@
     input{
         margin-bottom: 5px;
     }
-    /* input[type="checkbox"]{ */
-        /* margin-left: 15px; */
-    /* } */
     .days{
         padding: 0;
         margin: auto 15px;
     }
-    /* .days:nth-child(1){
-        padding-left: 15px;
-    } */
     .row{
         margin-bottom: 20px;
     }

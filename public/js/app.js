@@ -1952,7 +1952,6 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    // get the list of events
     axios.post(this.listEventRoute, this.data).then(function (response) {
       _this.events = response.data.dates;
       _this.eventIDs = _this.events.map(function (value, key) {
@@ -1969,7 +1968,6 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   mounted: function mounted() {
-    // prepare the list of days 
     this.data.month = this.$moment().format("MMMM");
     this.data.year = this.$moment().year();
     var startOfMonth = this.$moment().startOf("month");
@@ -1983,8 +1981,7 @@ __webpack_require__.r(__webpack_exports__);
       this.events = value;
       this.eventIDs = this.events.map(function (value, key) {
         return value.date;
-      }); // console.log("calendar parent");
-      // console.log(this.events);
+      });
     },
     filterEvents: function filterEvents(id) {
       return this.events.filter(function (singleEvent) {
@@ -2011,16 +2008,6 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2105,7 +2092,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       axios.post(this.eventRoute, this.data).then(function (response) {
-        _this.events = response.data.dates; // console.log(this.events);
+        _this.events = response.data.dates;
 
         _this.$emit('updateEvents', _this.events);
 
@@ -6710,7 +6697,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* #calendar-form{\n    border: 1px solid #aaa;\n    border-radius: 5px;\n    padding-top: 10px;\n    padding-bottom: 10px;\n} */\nhr[data-v-052a41a9]{\n    border-top: 1px solid rgba(0, 0, 0, 0.5);\n    margin-bottom: 0;\n}\n", ""]);
+exports.push([module.i, "\nhr[data-v-052a41a9]{\n    border-top: 1px solid rgba(0, 0, 0, 0.5);\n    margin-bottom: 0;\n}\n", ""]);
 
 // exports
 
@@ -6729,7 +6716,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ninput[data-v-43a8c00d]{\n    margin-bottom: 5px;\n}\n/* input[type=\"checkbox\"]{ */\n    /* margin-left: 15px; */\n/* } */\n.days[data-v-43a8c00d]{\n    padding: 0;\n    margin: auto 15px;\n}\n/* .days:nth-child(1){\n    padding-left: 15px;\n} */\n.row[data-v-43a8c00d]{\n    margin-bottom: 20px;\n}\n", ""]);
+exports.push([module.i, "\ninput[data-v-43a8c00d]{\n    margin-bottom: 5px;\n}\n.days[data-v-43a8c00d]{\n    padding: 0;\n    margin: auto 15px;\n}\n.row[data-v-43a8c00d]{\n    margin-bottom: 20px;\n}\n", ""]);
 
 // exports
 
@@ -6748,7 +6735,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.hasEvent[data-v-74e252a1]{\n    /* background: #90EE90; */\n    background: #e1fcd9;\n    /* background: #e8f2e5; */\n    /* background: #f3faf1; */\n}\np[data-v-74e252a1]{\n    margin: 10px 0;\n    padding-left: 10px;\n    padding-right: 30px;\n}\n\n", ""]);
+exports.push([module.i, "\n.hasEvent[data-v-74e252a1]{\n    background: #e1fcd9;\n}\np[data-v-74e252a1]{\n    margin: 10px 0;\n    padding-left: 10px;\n    padding-right: 30px;\n}\n\n", ""]);
 
 // exports
 

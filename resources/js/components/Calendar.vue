@@ -40,7 +40,6 @@
             }
         },
         created() {
-            // get the list of events
             axios.post(this.listEventRoute, this.data).then(response => {
 
                 this.events = response.data.dates;
@@ -58,7 +57,6 @@
             });
         },
         mounted() {
-            // prepare the list of days 
             this.data.month = this.$moment().format("MMMM");
             this.data.year = this.$moment().year();
 
@@ -76,8 +74,6 @@
                 this.eventIDs = this.events.map(function(value, key){
                     return value.date;
                 });
-                // console.log("calendar parent");
-                // console.log(this.events);
             },
             filterEvents: function(id) {
                 return this.events.filter(singleEvent => singleEvent.date == id);
@@ -87,12 +83,6 @@
 </script>
 
 <style scoped>
-    /* #calendar-form{
-        border: 1px solid #aaa;
-        border-radius: 5px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    } */
     hr{
         border-top: 1px solid rgba(0, 0, 0, 0.5);
         margin-bottom: 0;

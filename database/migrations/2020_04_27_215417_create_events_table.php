@@ -14,14 +14,12 @@ class CreateEventsTable extends Migration
     public function up()
     {
         Schema::create('events', function (Blueprint $table) {
-            // $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->string('name');
             $table->timestamps();
         });
 
         Schema::create('dates', function (Blueprint $table) {
-            // $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->unsignedBigInteger('event_id');
             $table->string('full_date');

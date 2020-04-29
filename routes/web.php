@@ -1,9 +1,6 @@
 <?php
 
-use App\Date;
-use App\Event;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +14,6 @@ use App\Http\Controllers\EventController;
 */
 
 Route::get('/', function () {
-    // Event::destroy(2);
-    // return dd(Date::all());
-    // return view('welcome');
     return view('index');
 });
 
