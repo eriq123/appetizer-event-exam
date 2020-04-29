@@ -2050,6 +2050,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['eventRoute', 'currentMonth', 'currentYear'],
   data: function data() {
@@ -2074,11 +2075,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     saveEvent: function saveEvent() {
       var _this = this;
 
-      this.$Swal.fire({
-        title: 'Success!',
-        text: 'Event successfully saved!',
-        icon: 'success'
-      });
+      this.data.dates = [];
+      this.data.month = this.currentMonth;
+      this.data.year = this.currentYear;
       var startDate = this.$moment(this.fromDate);
       var endDate = this.$moment(this.toDate);
       var range = this.$moment().range(startDate, endDate);
@@ -2105,12 +2104,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         _iterator.f();
       }
 
-      this.data.month = this.currentMonth;
-      this.data.year = this.currentYear;
       axios.post(this.eventRoute, this.data).then(function (response) {
         _this.events = response.data.dates; // console.log(this.events);
 
         _this.$emit('updateEvents', _this.events);
+
+        _this.$Swal.fire({
+          title: 'Success!',
+          text: 'Event successfully saved!',
+          icon: 'success'
+        });
       })["catch"](function (e) {
         console.log(e);
 
@@ -71729,11 +71732,11 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
-var Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-
-
 
 var moment = Object(moment_range__WEBPACK_IMPORTED_MODULE_1__["extendMoment"])(moment__WEBPACK_IMPORTED_MODULE_0___default.a);
+
+var Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+
 Vue.prototype.$moment = moment;
 Vue.prototype.$Swal = Swal;
 /**

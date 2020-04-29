@@ -26,6 +26,7 @@
             Save
         </button>
 
+    <!-- {{this.data.dates}} -->
         <!-- <div class="container">
             days: {{daysSelected}} <br>
 
@@ -63,12 +64,10 @@
         },
         methods: {
             saveEvent: function(){
-                this.$Swal.fire({
-                    title: 'Success!',
-                    text: 'Event successfully saved!',
-                    icon: 'success',
-                });
-                
+                this.data.dates = [];
+                this.data.month = this.currentMonth;
+                this.data.year = this.currentYear;
+
                 const startDate = this.$moment(this.fromDate);
                 const endDate = this.$moment(this.toDate);
                 const range = this.$moment().range(startDate, endDate);
@@ -84,15 +83,17 @@
                     }
                 }
 
-                this.data.month = this.currentMonth;
-                this.data.year = this.currentYear;
-
-
                 axios.post(this.eventRoute, this.data).then(response => {
 
                     this.events = response.data.dates;
                     // console.log(this.events);
                     this.$emit('updateEvents',this.events);
+                
+                    this.$Swal.fire({
+                        title: 'Success!',
+                        text: 'Event successfully saved!',
+                        icon: 'success',
+                    });
 
                 }).catch(e => {
                     console.log(e);
