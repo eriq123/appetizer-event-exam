@@ -6,8 +6,10 @@
 2. run this commands
     `composer install`,
     `npm install`,
+    `npm install moment moment-range sweetalert2`,
     `npm run dev`
-3. create database and setup your .env file
+3. create database and setup your .env file and don't forget to generate your application key using
+    `php artisan key:generate`
 
 <b>Enjoy!</b>
 
