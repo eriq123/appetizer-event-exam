@@ -10,27 +10,28 @@ class EventController extends Controller
 {
     public function saveEvent(Request $request)
     {
-        Event::with('dates')->where('name',$request->eventName)->delete();
-        $this->data['event'] = Event::create([
+        $this->data['event'] = Event::firstOrCreate([
             'name' => $request->eventName
         ]);
+
+        Date::where('event_id',$this->data['event']->id)->delete();
         
         foreach($request->dates as $key => $value)
         {
-            Date::where('full_date',$value['full_date'])->delete();
-            Date::create([
-                'event_id' => $this->data['event']->id,
+            Date::updateOrCreate([
                 'full_date' => $value['full_date'],
                 'month' => $value['month'],
                 'date' => $value['date'],
                 'year' => $value['year'],
+            ],[
+                'event_id' => $this->data['event']->id,
             ]);
         }
 
         $this->getDates($request);
         return response()->json($this->data);
     }
-
+    
     private function getDates($request)
     {
         $this->data['dates'] = Date::with('event')->where('month', $request->month)->where('year',$request->year)->orderBy('full_date')->get();
