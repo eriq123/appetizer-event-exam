@@ -1,16 +1,11 @@
 # Welcome to Appetizer Event Exam
 
-## Instructions 
+This is a simple calendar application that can help users save and update events easily.
+
+## Instructions
 
 1. clone this repository or download as zip.
-2. run this commands
-    `composer install`,
-    `npm install`,
-    `npm run dev`
-3. create database and setup your .env file and don't forget to generate your application key using
-    `php artisan key:generate`
+2. `composer install`,
+3. create database and .env file and don't forget to update the database config
 
 <b>Enjoy!</b>
-
-
-<p>If you have any questions or clarifications, please email me at <b>mendozaeriqjohn48@gmail.com</b>.</p>
